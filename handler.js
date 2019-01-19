@@ -1,18 +1,31 @@
 "use strict";
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
 function hello(params) {
-    const slack = ["Slack", "Country", "State"];
-
-    let result = Math.floor(params.value);
+    mongoose.connect(
+        "mongodb://localhost/test",
+        { useMongoClient: true }
+    );
 
     const process = {
         mensage: params.mensage,
-        channel: params.channel,
-        slack: slack,
-        value: result
+        channel: params.channel
     };
+    var slackDataSchema = new Schema(
+        {
+            mensage: { type: String, required: true },
+            channel: String
+        },
+        { collection: "slack" }
+    );
 
-    return process;
+    var Process = mongoose.model("SlackData", slackDataSchema);
+
+    var data = new Process(process);
+    data.save();
+
+    return data;
 }
 
 exports.hello = hello;
