@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 function hello(params) {
     mongoose.connect(
-        "mongodb://localhost/test",
+        "mongodb://localhost:27017/test",
         { useMongoClient: true }
     );
 
