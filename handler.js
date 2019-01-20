@@ -2,30 +2,25 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-function hello(params) {
-    mongoose.connect(
-        "mongodb://localhost:27017/test",
-        { useMongoClient: true }
-    );
+mongoose.connect(
+    "mongodb://process:slack123@ds161794.mlab.com:61794/process",
+    { useNewUrlParser: true }
+);
 
-    const process = {
-        mensage: params.mensage,
-        channel: params.channel
-    };
-    var slackDataSchema = new Schema(
-        {
-            mensage: { type: String, required: true },
-            channel: String
-        },
-        { collection: "slack" }
-    );
+function insert(params) {
+    var slackDataSchema = new Schema({
+        mensage: { type: String, required: true },
+        channel: String
+    });
 
     var Process = mongoose.model("SlackData", slackDataSchema);
 
-    var data = new Process(process);
-    data.save();
+    const process = new Process({
+        mensage: params.mensage,
+        channel: params.channel
+    });
 
-    return data;
+    return process.save();
 }
 
-exports.hello = hello;
+exports.insert = insert;

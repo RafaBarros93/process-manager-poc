@@ -16,13 +16,17 @@ service: process-manager-poc # NOTE: update this with your service name
 # Remember to install project dependencies to register the provider plugin.
 # $ npm install
 provider:
-  name: openwhisk
+    name: openwhisk
 
 functions:
-  hello:
-    handler: handler.hello
+    insert:
+        handler: handler.insert
+        annotations:
+            web-export: true
+events:
+    - http: POST slack/create
 
 # extend the framework using plugins listed here:
 # https://github.com/serverless/plugins
 plugins:
-  - serverless-openwhisk
+    - serverless-openwhisk
