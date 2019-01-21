@@ -25,7 +25,9 @@ functions:
             web-export: true
 events:
     - http: POST slack/create
-
+package:
+    include:
+        - Model/Proces.js
 # extend the framework using plugins listed here:
 # https://github.com/serverless/plugins
 plugins:
