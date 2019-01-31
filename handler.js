@@ -15,8 +15,12 @@ const insert = (params) => {
     var Process = mongoose.model("SlackData", slackDataSchema); */
 
     const process = new Process({
-        mensage: params.mensage,
-        channel: params.channel
+        name: params.name,
+        userId: params.userId,
+        accountingId: params.accountingId,
+        companyId: params.companyId,
+        startedAt: new Date(),
+        params: params.params
     });
 
     return process.save();
