@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-const slackDataSchema = new Schema({
+
+const Process = mongoose.model("SlackData", {
     accountingId: {
         type: String,
         required: true
@@ -34,7 +34,5 @@ const slackDataSchema = new Schema({
         required: true
     }
 });
-
-const Process = mongoose.model("SlackData", slackDataSchema);
 
 module.exports = Process;
