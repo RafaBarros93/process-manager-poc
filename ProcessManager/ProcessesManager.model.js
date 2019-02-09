@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Process = mongoose.model("SlackData", {
+const Schema = new mongoose.Schema({
     accountingId: {
         type: String,
         required: true
@@ -35,4 +35,4 @@ const Process = mongoose.model("SlackData", {
     }
 });
 
-module.exports = Process;
+export default mongoose.model("ProcessesManagers", Schema);

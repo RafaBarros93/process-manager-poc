@@ -12,23 +12,29 @@
 # Happy Coding!
 
 service: process-manager-poc # NOTE: update this with your service name
-
+app: process-manager-poc
 # Remember to install project dependencies to register the provider plugin.
 # $ npm install
+
 provider:
     name: openwhisk
+    environment: ${file(./env/env-${opt:stage, 'dev'}.js)}
 
 functions:
-    insert:
-        handler: handler.insert
-        annotations:
-            web-export: true
-events:
-    - http: POST slack/create
-package:
-    include:
-        - Model/Proces.js
+    ProcessManagerInsert:
+        handler: ProcessManager/ProcessManager.insert
+
+custom:
+    webpack:
+        webpackConfig: ./webpack.config.js
+        includeModules: true
+
 # extend the framework using plugins listed here:
 # https://github.com/serverless/plugins
 plugins:
     - serverless-openwhisk
+    - serverless-mocha-plugin
+    - serverless-webpack
+
+package:
+    individually: true
